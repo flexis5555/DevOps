@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./var/www:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/default.conf
+    depends_on:
+      - php
+    networks:
+      - good
+  php:
+    image: php:latest
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./var/www:/usr/share/nginx/html
+    networks:
+      - good
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      mysql_database: db
+      mysql_root_password: 98765
+      mysql_user: unicorn
+      mysql_password: 12345
+    volumes:
+      - ./var/lib/mysql:/usr/share/nginx/
+    networks:
+      - good
+
+networks:
+  good:
+    driver: bridge
