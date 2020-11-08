@@ -10,6 +10,8 @@ services:
     volumes:
       - ./var/www:/usr/share/nginx/html
       - ./nginx/nginx.conf:/etc/nginx/default.conf
+    links:
+      - php
     depends_on:
       - php
     networks:
@@ -21,6 +23,8 @@ services:
       - "9000:9000"
     volumes:
       - ./var/www:/usr/share/nginx/html
+    links:
+      - mysql
     networks:
       - good
   mysql:
