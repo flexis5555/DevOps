@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx2
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./var/www:/usr/share/nginx
+    networks:
+      - good
+
+networks:
+  good:
+    driver: bridge
